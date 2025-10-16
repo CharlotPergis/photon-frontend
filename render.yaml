@@ -1,0 +1,16 @@
+# render.yaml — frontend
+services:
+  - type: web
+    name: photon-frontend
+    runtime: node
+    branch: main
+    plan: starter  # or "free" if you're using Render's free plan
+
+    buildCommand: npm install && npm run build
+    startCommand: npx serve -s build
+
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        value: https://ocr-prototype-backend.onrender.com
+
+    autoDeploy: true

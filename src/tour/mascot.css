@@ -1,0 +1,57 @@
+/* Dim overlay + cyan spotlight ring */
+.driver-overlay{ background:rgba(0,0,0,.65)!important; }
+.driver-stage,.driver-highlighted-element{
+  border-radius:14px!important;
+  box-shadow:0 0 0 3px rgba(125,211,252,.75)!important;
+}
+
+/* Popover = glass UI */
+.driver-popover,.photon-popover{
+  border-radius:18px!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.06))!important;
+  color:#e7ecf3!important;
+  box-shadow:0 16px 40px rgba(0,0,0,.38)!important;
+  backdrop-filter:blur(12px) saturate(120%);
+}
+.driver-popover-title{ font-weight:800!important; }
+.driver-popover-footer button{ border-radius:10px!important; }
+.driver-progress{ --driverjs-progress-color:rgba(125,211,252,.9); }
+
+/* Mascot content inside popover */
+.photon-tour{
+  display:grid; grid-template-columns:56px 1fr; gap:12px; align-items:start;
+}
+.photon-avatar{
+  width:56px; height:56px; border-radius:50%; object-fit:contain;
+  background:radial-gradient(closest-side,rgba(125,211,252,.25),transparent 70%);
+  box-shadow:0 0 0 2px rgba(125,211,252,.35), 0 8px 22px rgba(0,0,0,.25);
+}
+.photon-bubble{
+  position:relative; border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.25); border-radius:14px; padding:10px 12px; line-height:1.45;
+}
+.photon-bubble::before{
+  content:""; position:absolute; left:-8px; top:16px; width:0; height:0;
+  border-top:8px solid transparent; border-bottom:8px solid transparent;
+  border-right:8px solid rgba(0,0,0,.25);
+}
+
+/* Floating mascot button (FAB) */
+.mascot-fab{
+  position:fixed; right:20px; bottom:20px; z-index:9999;
+  width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(255,255,255,.14);
+  background:radial-gradient(closest-side,rgba(125,211,252,.25),transparent 70%), #0b0f14;
+  box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(125,211,252,.0);
+  cursor:pointer; transition:transform .12s ease, box-shadow .2s ease;
+}
+.mascot-fab:hover{ transform:translateY(-1px); box-shadow:0 16px 38px rgba(0,0,0,.42), 0 0 0 6px rgba(125,211,252,.18); }
+.mascot-fab img{ width:36px; height:36px; object-fit:contain; }
+.mascot-fab.pulse{ animation:photonPulse 2.6s ease-in-out infinite; }
+@keyframes photonPulse{
+  0%{ box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(125,211,252,.0); }
+  70%{ box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 16px rgba(125,211,252,.18); }
+  100%{ box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 0 rgba(125,211,252,.0); }
+}

@@ -1,0 +1,315 @@
+/* src/pages/ImageCropper.css */
+.image-cropper-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  touch-action: none;
+  /* Prevent any text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.image-cropper-modal {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.cropper-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #333;
+}
+
+.cropper-header h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.cropper-header .btn.ghost {
+  background: transparent;
+  border: 1px solid #555;
+  color: #ccc;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cropper-content {
+  flex: 1;
+  overflow-y: auto;
+  color: #ffffff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.crop-instructions {
+  background: #2d2d2d;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #007bff;
+  text-align: center;
+}
+
+.crop-instructions p {
+  margin: 8px 0;
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.crop-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px 0;
+  padding: 20px;
+  background: #2d2d2d;
+  border-radius: 8px;
+  border: 1px solid #3d3d3d;
+  touch-action: none;
+}
+
+.crop-preview {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  /* Critical performance optimizations */
+  transform: translateZ(0);
+  will-change: transform;
+  contain: layout style paint;
+}
+
+.crop-preview img {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 6px;
+  border: 2px solid #555;
+  display: block;
+  /* Prevent any image interference */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.crop-box {
+  position: absolute;
+  border: 3px solid #00ff88;
+  background: rgba(0, 255, 136, 0.05);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+  cursor: move;
+  /* Maximum performance optimizations */
+  transform: translateZ(0);
+  will-change: left, top, width, height;
+  transition: none !important;
+  contain: layout style paint;
+  /* Larger touch targets */
+  min-width: 80px;
+  min-height: 80px;
+}
+
+.crop-handle {
+  position: absolute;
+  background: #00ff88;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 10;
+  /* Performance */
+  transform: translateZ(0);
+  will-change: transform;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  /* Touch optimization */
+  min-width: 24px;
+  min-height: 24px;
+  touch-action: none;
+}
+
+.crop-handle:active {
+  background: #00aa44;
+  transform: scale(1.2);
+}
+
+/* Corner handles */
+.handle-nw {
+  top: -10px;
+  left: -10px;
+  cursor: nw-resize;
+}
+
+.handle-ne {
+  top: -10px;
+  right: -10px;
+  cursor: ne-resize;
+}
+
+.handle-sw {
+  bottom: -10px;
+  left: -10px;
+  cursor: sw-resize;
+}
+
+.handle-se {
+  bottom: -10px;
+  right: -10px;
+  cursor: se-resize;
+}
+
+/* Side handles */
+.handle-n {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: n-resize;
+}
+
+.handle-s {
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: s-resize;
+}
+
+.handle-w {
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: w-resize;
+}
+
+.handle-e {
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: e-resize;
+}
+
+.cropper-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+}
+
+.cropper-actions .btn {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  min-height: 44px;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .image-cropper-overlay {
+    padding: 10px;
+  }
+  
+  .image-cropper-modal {
+    width: 95vw;
+    padding: 16px;
+    max-height: 95vh;
+  }
+  
+  .cropper-actions {
+    flex-direction: column;
+  }
+  
+  .cropper-actions .btn {
+    width: 100%;
+    min-height: 50px;
+    font-size: 16px;
+  }
+  
+  .crop-preview img {
+    max-height: 50vh;
+  }
+  
+  /* Much larger handles for mobile touch */
+  .crop-handle {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .handle-nw, .handle-ne, .handle-sw, .handle-se {
+    top: -16px;
+    left: -16px;
+  }
+  
+  .handle-ne { left: auto; right: -16px; }
+  .handle-sw { top: auto; bottom: -16px; }
+  .handle-se { top: auto; left: auto; right: -16px; bottom: -16px; }
+  
+  .handle-n, .handle-s { top: -16px; }
+  .handle-s { top: auto; bottom: -16px; }
+  
+  .handle-w, .handle-e { left: -16px; }
+  .handle-e { left: auto; right: -16px; }
+  
+  /* Remove hover effects on mobile */
+  .crop-handle:hover {
+    transform: scale(1);
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .crop-handle {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .handle-nw, .handle-ne, .handle-sw, .handle-se {
+    top: -18px;
+    left: -18px;
+  }
+  
+  .handle-ne { left: auto; right: -18px; }
+  .handle-sw { top: auto; bottom: -18px; }
+  .handle-se { top: auto; left: auto; right: -18px; bottom: -18px; }
+  
+  .handle-n, .handle-s { top: -18px; }
+  .handle-s { top: auto; bottom: -18px; }
+  
+  .handle-w, .handle-e { left: -18px; }
+  .handle-e { left: auto; right: -18px; }
+}
+
+/* Disable all text selection */
+.image-cropper-modal * {
+  user-select: none;
+  -webkit-user-select: none;
+}
